@@ -4,10 +4,12 @@ import {
   Flag,
   LayoutDashboard,
   MessageSquareText,
+  Network,
   RotateCcw,
   Table2,
   Workflow,
 } from 'lucide-react'
+import { ArchitectureScreen } from './screens/ArchitectureScreen'
 import { DatasetScreen } from './screens/DatasetScreen'
 import { IntakeScreen } from './screens/IntakeScreen'
 import { OrderOverviewScreen } from './screens/OrderOverviewScreen'
@@ -67,9 +69,19 @@ function Header() {
         </div>
       </div>
 
-      {started && (
-        <nav className="flex items-center gap-1 rounded-full bg-paper p-1">
-          {tabs.map((tab) => {
+      <nav className="flex items-center gap-1 rounded-full bg-paper p-1">
+        <button
+          type="button"
+          onClick={() => setScreen('architecture')}
+          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+            screen === 'architecture' ? 'bg-white text-ink shadow-sm' : 'text-muted hover:text-ink'
+          }`}
+        >
+          <Network className="size-3.5" />
+          Architecture
+        </button>
+        {started &&
+          tabs.map((tab) => {
             const Icon = tab.icon
             const active = screen === tab.id
             return (
@@ -91,8 +103,7 @@ function Header() {
               </button>
             )
           })}
-        </nav>
-      )}
+      </nav>
 
       <button
         type="button"
@@ -118,6 +129,7 @@ export default function App() {
       <Header />
       <main className="min-h-0 flex-1 overflow-hidden">
         {screen === 'intake' && <IntakeScreen />}
+        {screen === 'architecture' && <ArchitectureScreen />}
         {screen === 'processing' && <ProcessingScreen />}
         {screen === 'orders' && <OrderOverviewScreen />}
         {screen === 'dataset' && <DatasetScreen />}

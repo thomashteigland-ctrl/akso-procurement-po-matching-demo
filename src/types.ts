@@ -57,7 +57,14 @@ export interface Order {
   lineItems: OrderLineSuperset[]
 }
 
-export type AppScreen = 'intake' | 'processing' | 'orders' | 'dataset' | 'review' | 'talk'
+export type AppScreen =
+  | 'intake'
+  | 'processing'
+  | 'orders'
+  | 'dataset'
+  | 'review'
+  | 'talk'
+  | 'architecture'
 
 export type ExtractionStatus = 'extracting' | 'completed' | 'flagged'
 
