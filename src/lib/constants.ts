@@ -1,3 +1,5 @@
+export const DEMO_PASSWORD = 'aisprints2026'
+export const DEMO_UNLOCK_KEY = 'akso-demo-unlocked'
 export const BATCH_SIZE = 1000
 export const CONFIDENCE_THRESHOLD = 0.82
 export const SHOWCASE_COUNT = 10

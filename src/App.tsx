@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ClipboardList,
   Flag,
@@ -9,7 +9,9 @@ import {
   Table2,
   Workflow,
 } from 'lucide-react'
+import { DEMO_UNLOCK_KEY } from './lib/constants'
 import { ArchitectureScreen } from './screens/ArchitectureScreen'
+import { LockScreen } from './screens/LockScreen'
 import { DatasetScreen } from './screens/DatasetScreen'
 import { IntakeScreen } from './screens/IntakeScreen'
 import { OrderOverviewScreen } from './screens/OrderOverviewScreen'
@@ -121,8 +123,32 @@ function Header() {
   )
 }
 
+function readUnlocked() {
+  try {
+    return sessionStorage.getItem(DEMO_UNLOCK_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
 export default function App() {
   const screen = useDemoStore((s) => s.screen)
+  const [unlocked, setUnlocked] = useState(readUnlocked)
+
+  if (!unlocked) {
+    return (
+      <LockScreen
+        onUnlock={() => {
+          try {
+            sessionStorage.setItem(DEMO_UNLOCK_KEY, '1')
+          } catch {
+            /* ignore quota / private-mode failures */
+          }
+          setUnlocked(true)
+        }}
+      />
+    )
+  }
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-paper">
